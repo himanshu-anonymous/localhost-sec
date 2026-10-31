@@ -379,8 +379,11 @@ If Gemma is offline or unreachable:
 
 ```
 localhost-sec/
-├── context.md                          # Baseline Architecture & Technical Spec v1.0
 ├── README.md                           # Hackathon Overview & Quickstart
+├── run_m1_demo.py                      # Live terminal demonstration runner
+├── system-docs/                        # 📚 System Architecture & Specifications
+│   ├── README.md                       # Documentation Index
+│   └── context.md                      # Baseline Architecture & Technical Spec v1.0
 ├── docker-compose.yml                  # Container Validation cyber-range
 ├── backend/
 │   ├── pyproject.toml / requirements.txt
