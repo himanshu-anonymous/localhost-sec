@@ -1,6 +1,6 @@
 """
 Main FastAPI Orchestrator Core — localhost (BASTION X).
-Compliant with Section 10 of Master Execution Specification.
+Compliant with Section 10 of Master Execution Specification & Hybrid Database Architecture.
 """
 
 import os
@@ -17,8 +17,12 @@ from backend.app.api.routes_scenarios import router as router_scenarios
 from backend.app.api.routes_training import router as router_training
 from backend.app.api.routes_metrics import router as router_metrics
 from backend.app.api.websocket_handler import router as router_websocket
+from backend.app.api.routes_mitre import router as router_mitre
+from backend.app.api.routes_simulations import router as router_simulations
 from backend.app.environments.docker_manager import docker_manager
 from backend.app.orchestrator.training_service import trainer_service
+from backend.db.postgres import init_db
+from backend.db.seed import seed_database
 
 app = FastAPI(
     title="localhost (BASTION X) — Orchestrator API",
@@ -41,6 +45,18 @@ app.include_router(router_scenarios)
 app.include_router(router_training)
 app.include_router(router_metrics)
 app.include_router(router_websocket)
+app.include_router(router_mitre)
+app.include_router(router_simulations)
+
+
+@app.on_event("startup")
+def on_startup():
+    """Initialises persistent schema and seeds environments & MITRE container techniques."""
+    try:
+        init_db()
+        seed_database()
+    except Exception as e:
+        print(f"[Warning] Database initialization or seeding deferred: {e}")
 
 
 @app.get("/")
@@ -52,7 +68,9 @@ def root():
         "trainer_status": trainer_service.get_status(),
         "docker_workers": docker_manager.get_worker_urls(),
         "documentation": "/docs",
-        "live_dashboard": "/dashboard"
+        "live_dashboard": "/dashboard",
+        "mitre_catalog": "/api/mitre/techniques",
+        "simulations": "/api/simulations"
     }
 
 

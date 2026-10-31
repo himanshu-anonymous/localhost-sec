@@ -393,6 +393,7 @@ localhost-sec/
 │   ├── README.md                       # Documentation Index
 │   ├── context.md                      # Baseline Architecture & Technical Spec v1.0
 │   ├── MITRE.md                        # MITRE ATT&CK Container Platform Guide
+│   ├── DATABASE_ARCHITECTURE.md       # Master Database Architecture (Postgres + Neo4j)
 │   └── aegis_modular_defense.md        # Modular Defense Proposal Reference
 ├── docker-compose.yml                  # Container Validation cyber-range
 ├── backend/

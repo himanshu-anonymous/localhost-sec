@@ -21,7 +21,12 @@ This directory contains the formal architectural specifications, technical propo
    - 9 Tactic mappings: Initial Access, Execution, Persistence, Privilege Escalation, Credential Access, Discovery, Lateral Movement, Exfiltration, Impact.
    - Emulation rules, detection analytics, telemetry mapping, and STIX data pipelines.
 
-3. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
+3. [**Master Database Architecture & Ephemeral Graph Plan (`DATABASE_ARCHITECTURE.md`)**](DATABASE_ARCHITECTURE.md)
+   - Persistent Relational Store (PostgreSQL 16) + Ephemeral Runtime Graph (Neo4j 5).
+   - 18 relational tables across 5 domains.
+   - Run-scoped Neo4j graph hydration, dynamic edge mutation, blast radius calculation, and automatic teardown.
+
+4. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
    - Detailed specification of modular defense orchestration, defense state machine, and static vs. adaptive Docker evaluation.
 
 ---
