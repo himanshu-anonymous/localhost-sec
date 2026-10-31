@@ -1,0 +1,4 @@
+# AEGIS Gateway Blocked IPs ACL List
+# Updated dynamically by the Policy Agent via HAProxy Runtime API
+# Entries must be valid IPv4 / CIDR within the lab subnet (e.g. 172.31.10.0/24)
+

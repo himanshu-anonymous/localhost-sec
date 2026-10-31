@@ -1,0 +1,529 @@
+[
+  {
+    "technique_id": "T1003",
+    "parent_technique_id": null,
+    "name": "OS Credential Dumping",
+    "description": "Adversaries may attempt to dump credentials from memory or volume mounts.",
+    "tactics": [
+      "credential-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1003/"
+  },
+  {
+    "technique_id": "T1021",
+    "parent_technique_id": null,
+    "name": "Remote Services",
+    "description": "Adversaries may use valid credentials to log into remote container endpoints.",
+    "tactics": [
+      "lateral-movement"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1021/"
+  },
+  {
+    "technique_id": "T1046",
+    "parent_technique_id": null,
+    "name": "Network Service Discovery",
+    "description": "Adversaries may attempt to get a listing of services running on network hosts.",
+    "tactics": [
+      "discovery"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1046/"
+  },
+  {
+    "technique_id": "T1053",
+    "parent_technique_id": null,
+    "name": "Scheduled Task/Job",
+    "description": "Adversaries may abuse task scheduling mechanisms to facilitate initial or recurring execution.",
+    "tactics": [
+      "persistence"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1053/"
+  },
+  {
+    "technique_id": "T1059",
+    "parent_technique_id": null,
+    "name": "Command and Scripting Interpreter",
+    "description": "Adversaries may abuse command and microservice execution interpreters.",
+    "tactics": [
+      "execution"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1059/"
+  },
+  {
+    "technique_id": "T1068",
+    "parent_technique_id": null,
+    "name": "Exploitation for Privilege Escalation",
+    "description": "Adversaries may exploit software vulnerabilities to escalate privileges within or across containers.",
+    "tactics": [
+      "privilege-escalation"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1068/"
+  },
+  {
+    "technique_id": "T1070",
+    "parent_technique_id": null,
+    "name": "Indicator Removal",
+    "description": "Adversaries may delete or alter container log artifacts to hinder forensic analysis.",
+    "tactics": [
+      "defense-evasion"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1070/"
+  },
+  {
+    "technique_id": "T1078",
+    "parent_technique_id": null,
+    "name": "Valid Accounts",
+    "description": "Adversaries may obtain and abuse credentials of existing legitimate service accounts.",
+    "tactics": [
+      "defense-evasion"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1078/"
+  },
+  {
+    "technique_id": "T1082",
+    "parent_technique_id": null,
+    "name": "System Information Discovery",
+    "description": "Adversaries may attempt to get detailed container runtime and kernel information.",
+    "tactics": [
+      "discovery"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1082/"
+  },
+  {
+    "technique_id": "T1087",
+    "parent_technique_id": null,
+    "name": "Account Discovery",
+    "description": "Adversaries may attempt to enumerate accounts or RBAC roles within the cluster.",
+    "tactics": [
+      "discovery"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1087/"
+  },
+  {
+    "technique_id": "T1098",
+    "parent_technique_id": null,
+    "name": "Account Manipulation",
+    "description": "Adversaries may manipulate accounts to maintain access or elevate privileges.",
+    "tactics": [
+      "persistence"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1098/"
+  },
+  {
+    "technique_id": "T1110",
+    "parent_technique_id": null,
+    "name": "Brute Force",
+    "description": "Adversaries may use brute force techniques to attempt credential access.",
+    "tactics": [
+      "credential-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1110/"
+  },
+  {
+    "technique_id": "T1133",
+    "parent_technique_id": null,
+    "name": "External Remote Services",
+    "description": "Adversaries may leverage exposed container administration or remote access ports.",
+    "tactics": [
+      "initial-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1133/"
+  },
+  {
+    "technique_id": "T1136",
+    "parent_technique_id": null,
+    "name": "Create Account",
+    "description": "Adversaries may create an account to maintain access to victim systems.",
+    "tactics": [
+      "persistence"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1136/"
+  },
+  {
+    "technique_id": "T1190",
+    "parent_technique_id": null,
+    "name": "Exploit Public-Facing Application",
+    "description": "Adversaries may exploit vulnerabilities in public-facing web applications or ingress controllers.",
+    "tactics": [
+      "initial-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1190/"
+  },
+  {
+    "technique_id": "T1204",
+    "parent_technique_id": null,
+    "name": "User Execution",
+    "description": "An adversary may rely on actions by a user or developer to trigger containerized code.",
+    "tactics": [
+      "execution"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1204/"
+  },
+  {
+    "technique_id": "T1485",
+    "parent_technique_id": null,
+    "name": "Data Destruction",
+    "description": "Adversaries may destroy data within container storage volumes to disrupt operations.",
+    "tactics": [
+      "impact"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1485/"
+  },
+  {
+    "technique_id": "T1489",
+    "parent_technique_id": null,
+    "name": "Service Stop",
+    "description": "Adversaries may stop container services or microservice processes to cause denial of service.",
+    "tactics": [
+      "impact"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1489/"
+  },
+  {
+    "technique_id": "T1496",
+    "parent_technique_id": null,
+    "name": "Resource Hijacking",
+    "description": "Adversaries may leverage container computing resources to mine cryptocurrency or conduct unauthorized tasks.",
+    "tactics": [
+      "impact"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1496/"
+  },
+  {
+    "technique_id": "T1498",
+    "parent_technique_id": null,
+    "name": "Network Denial of Service",
+    "description": "Adversaries may perform Network Denial of Service attacks to degrade availability.",
+    "tactics": [
+      "impact"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1498/"
+  },
+  {
+    "technique_id": "T1525",
+    "parent_technique_id": null,
+    "name": "Implant Internal Image",
+    "description": "Adversaries may implant malicious layers into internal container registry images.",
+    "tactics": [
+      "persistence"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1525/"
+  },
+  {
+    "technique_id": "T1528",
+    "parent_technique_id": null,
+    "name": "Steal Application Access Token",
+    "description": "Adversaries may steal application tokens or service account JWTs.",
+    "tactics": [
+      "credential-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1528/"
+  },
+  {
+    "technique_id": "T1543",
+    "parent_technique_id": null,
+    "name": "Create or Modify System Process",
+    "description": "Adversaries may create or modify system-level services or daemons within containers.",
+    "tactics": [
+      "persistence"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1543/"
+  },
+  {
+    "technique_id": "T1548",
+    "parent_technique_id": null,
+    "name": "Abuse Elevation Control Mechanism",
+    "description": "Adversaries may circumvent mechanisms designed to control elevation of privileges.",
+    "tactics": [
+      "privilege-escalation"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1548/"
+  },
+  {
+    "technique_id": "T1550",
+    "parent_technique_id": null,
+    "name": "Use Alternate Authentication Material",
+    "description": "Adversaries may use alternate authentication material such as tokens or session cookies.",
+    "tactics": [
+      "lateral-movement"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1550/"
+  },
+  {
+    "technique_id": "T1552",
+    "parent_technique_id": null,
+    "name": "Unsecured Credentials",
+    "description": "Adversaries may search container environments for unsecured credentials and API keys.",
+    "tactics": [
+      "credential-access"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1552/"
+  },
+  {
+    "technique_id": "T1562",
+    "parent_technique_id": null,
+    "name": "Impair Defenses",
+    "description": "Adversaries may impair container security tools, logging agents, or admission controllers.",
+    "tactics": [
+      "defense-evasion"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1562/"
+  },
+  {
+    "technique_id": "T1609",
+    "parent_technique_id": null,
+    "name": "Container Administration Command",
+    "description": "Adversaries may execute commands directly within a container via daemon APIs.",
+    "tactics": [
+      "execution"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1609/"
+  },
+  {
+    "technique_id": "T1610",
+    "parent_technique_id": null,
+    "name": "Deploy Container",
+    "description": "Adversaries may deploy a container into the environment to execute malicious workloads.",
+    "tactics": [
+      "execution"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1610/"
+  },
+  {
+    "technique_id": "T1611",
+    "parent_technique_id": null,
+    "name": "Escape to Host",
+    "description": "Adversaries may attempt to break out of a container to gain access on the host system.",
+    "tactics": [
+      "privilege-escalation"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1611/"
+  },
+  {
+    "technique_id": "T1613",
+    "parent_technique_id": null,
+    "name": "Container and Resource Discovery",
+    "description": "Adversaries may attempt to discover containers or infrastructure deployment assets.",
+    "tactics": [
+      "discovery"
+    ],
+    "platforms": [
+      "Containers",
+      "Linux"
+    ],
+    "is_subtechnique": false,
+    "source_modified": "2026-10-31T08:44:55.501665Z",
+    "source_version": "attack-stix-v16.1",
+    "mitre_url": "https://attack.mitre.org/techniques/T1613/"
+  }
+]

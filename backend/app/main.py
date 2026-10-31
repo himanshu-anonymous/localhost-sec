@@ -1,6 +1,6 @@
 """
-Main FastAPI Orchestrator Core — localhost (BASTION X).
-Compliant with Section 10 of Master Execution Specification & Hybrid Database Architecture.
+Main FastAPI Orchestrator Core — AEGIS / localhost (BASTION X).
+Compliant with Section 10 & 15 of AEGIS Master Execution Specification.
 """
 
 import os
@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse
 # Ensure root in sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
+from backend.app.api.routes_aegis_v1 import router as router_aegis_v1
 from backend.app.api.routes_environments import router as router_environments
 from backend.app.api.routes_scenarios import router as router_scenarios
 from backend.app.api.routes_training import router as router_training
@@ -25,8 +26,8 @@ from backend.db.postgres import init_db
 from backend.db.seed import seed_database
 
 app = FastAPI(
-    title="localhost (BASTION X) — Orchestrator API",
-    description="Adaptive Multi-Layer Network Defence Simulator Orchestration Core",
+    title="AEGIS / localhost (BASTION X) — Orchestrator API",
+    description="Adaptive Multi-Layer Network Defence Simulator & Dynamic Policy Orchestration Core",
     version="1.0.0"
 )
 
@@ -39,7 +40,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include API Routers
+# Include API Routers (routes_aegis_v1 included first to prioritize static paths like /metrics/compare over parameterized /metrics/{id})
+app.include_router(router_aegis_v1)
 app.include_router(router_environments)
 app.include_router(router_scenarios)
 app.include_router(router_training)
@@ -63,14 +65,20 @@ def on_startup():
 def root():
     return {
         "project": "localhost (BASTION X)",
+        "project_name": "AEGIS",
         "subtitle": "Adaptive Multi-Layer Network Defence Simulator",
         "status": "online",
         "trainer_status": trainer_service.get_status(),
         "docker_workers": docker_manager.get_worker_urls(),
-        "documentation": "/docs",
-        "live_dashboard": "/dashboard",
+        "api_v1_health": "/api/v1/health",
         "mitre_catalog": "/api/mitre/techniques",
-        "simulations": "/api/simulations"
+        "simulations": "/api/simulations",
+        "events": "/api/v1/events",
+        "incidents": "/api/v1/incidents",
+        "defense_state": "/api/v1/defense/state",
+        "metrics_compare": "/api/v1/metrics/compare",
+        "documentation": "/docs",
+        "live_dashboard": "/dashboard"
     }
 
 
@@ -82,7 +90,7 @@ def embedded_dashboard():
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>localhost (BASTION X) — Live Command Deck</title>
+        <title>AEGIS — Adaptive Security Command Deck</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
             body { background-color: #0b1120; color: #e2e8f0; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
@@ -91,49 +99,49 @@ def embedded_dashboard():
     <body class="p-6">
         <header class="border-b border-slate-700 pb-4 mb-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-cyan-400">localhost (BASTION X) Command Centre</h1>
-                <p class="text-xs text-slate-400">Adaptive Multi-Layer Network Defence Simulator — Live Telemetry Deck</p>
+                <h1 class="text-2xl font-bold text-cyan-400">AEGIS Command Centre</h1>
+                <p class="text-xs text-slate-400">Adaptive Elastic Guard & Intelligent Security — Real-Time Operations Deck</p>
             </div>
             <div class="flex gap-2">
-                <button onclick="startTraining()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded text-xs font-semibold">▶ Start RL Training</button>
-                <button onclick="stopTraining()" class="bg-rose-700 hover:bg-rose-600 text-white px-3 py-1.5 rounded text-xs font-semibold">⏹ Stop</button>
+                <button onclick="runAdaptiveSimulation()" class="bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded text-xs font-semibold">▶ Run T1110 Adaptive Test</button>
+                <button onclick="emergencyStop()" class="bg-rose-700 hover:bg-rose-600 text-white px-3 py-1.5 rounded text-xs font-semibold">⏹ Emergency Stop</button>
             </div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                <span class="text-xs text-slate-400">Env A (Baseline)</span>
-                <div id="env-a-avail" class="text-2xl font-bold text-rose-400 mt-1">--%</div>
-                <div class="text-xs text-slate-500 mt-1">Fixed Permissive</div>
+                <span class="text-xs text-slate-400">Defense State</span>
+                <div id="defense-state" class="text-2xl font-bold text-emerald-400 mt-1">NORMAL</div>
+                <div class="text-xs text-slate-500 mt-1">Active Gateway ACL</div>
             </div>
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                <span class="text-xs text-cyan-400">Env B (Adaptive DDPS)</span>
-                <div id="env-b-avail" class="text-2xl font-bold text-emerald-400 mt-1">--%</div>
-                <div class="text-xs text-slate-500 mt-1">Shared PPO Active</div>
+                <span class="text-xs text-cyan-400">Events Ingested</span>
+                <div id="events-count" class="text-2xl font-bold text-cyan-400 mt-1">0</div>
+                <div class="text-xs text-slate-500 mt-1">Normalized Stream</div>
             </div>
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                <span class="text-xs text-slate-400">Env C (Hardened)</span>
-                <div id="env-c-avail" class="text-2xl font-bold text-blue-400 mt-1">--%</div>
-                <div class="text-xs text-slate-500 mt-1">Strict Zero-Trust</div>
+                <span class="text-xs text-slate-400">Detections</span>
+                <div id="detections-count" class="text-2xl font-bold text-amber-400 mt-1">0</div>
+                <div class="text-xs text-slate-500 mt-1">Independent Inferred</div>
             </div>
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                <span class="text-xs text-slate-400">Env D (Experimental)</span>
-                <div id="env-d-avail" class="text-2xl font-bold text-amber-400 mt-1">--%</div>
-                <div class="text-xs text-slate-500 mt-1">Heuristic Policy</div>
+                <span class="text-xs text-slate-400">Open Incidents</span>
+                <div id="incidents-count" class="text-2xl font-bold text-rose-400 mt-1">0</div>
+                <div class="text-xs text-slate-500 mt-1">Triage & Containment</div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg lg:col-span-2">
-                <h3 class="text-sm font-semibold text-slate-300 mb-3">Live Telemetry Feed (WebSocket)</h3>
+                <h3 class="text-sm font-semibold text-slate-300 mb-3">Live Telemetry & Defense Log</h3>
                 <div id="telemetry-log" class="bg-slate-950 p-3 rounded text-xs text-slate-300 h-64 overflow-y-auto space-y-1">
-                    Connecting to WebSocket...
+                    System initialized. Ready for simulation.
                 </div>
             </div>
             <div class="bg-slate-900 border border-slate-800 p-4 rounded-lg">
-                <h3 class="text-sm font-semibold text-slate-300 mb-3">Gemma 4 Reasoning Explanation</h3>
+                <h3 class="text-sm font-semibold text-slate-300 mb-3">Gemma AI Security Assessment</h3>
                 <div id="gemma-box" class="bg-slate-950 p-3 rounded text-xs text-slate-300 h-64 overflow-y-auto">
-                    Waiting for episode evaluation report...
+                    Waiting for incident trigger...
                 </div>
             </div>
         </div>
@@ -141,51 +149,68 @@ def embedded_dashboard():
         <script>
             const logBox = document.getElementById("telemetry-log");
             const gemmaBox = document.getElementById("gemma-box");
-            
-            function connectWS() {
-                const ws = new WebSocket(`ws://${location.host}/ws/v1/experiments/exp-live`);
-                ws.onopen = () => { logBox.innerHTML = "<div>[WebSocket Connected] Listening for telemetry...</div>"; };
-                ws.onmessage = (e) => {
-                    const data = JSON.parse(e.data);
-                    if (data.event_type === "environment.telemetry") {
-                        const w = data.workers;
-                        document.getElementById("env-a-avail").innerText = w.env_a_baseline.metrics.effective_availability_pct.toFixed(1) + "%";
-                        document.getElementById("env-b-avail").innerText = w.env_b_adaptive.metrics.effective_availability_pct.toFixed(1) + "%";
-                        document.getElementById("env-c-avail").innerText = w.env_c_hardened.metrics.effective_availability_pct.toFixed(1) + "%";
-                        document.getElementById("env-d-avail").innerText = w.env_d_experimental.metrics.effective_availability_pct.toFixed(1) + "%";
-                        
-                        const item = document.createElement("div");
-                        item.innerText = `[T+${data.step}s] Ep ${data.episode} | Env-B Avail: ${w.env_b_adaptive.metrics.effective_availability_pct.toFixed(1)}% | Blast: ${w.env_b_adaptive.metrics.blast_radius_factor.toFixed(2)}`;
-                        logBox.prepend(item);
-                    }
-                };
-            }
-            connectWS();
 
-            async function startTraining() {
-                await fetch('/api/v1/training/start', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({experiment_id: 'exp-live', scenario_name: 'black_sky', max_episodes: 3, steps_per_episode: 50})
-                });
+            async function updateDashboardMetrics() {
+                try {
+                    const r = await fetch('/api/v1/metrics/overview');
+                    const d = await r.json();
+                    document.getElementById("defense-state").innerText = d.current_defense_state;
+                    document.getElementById("events-count").innerText = d.total_events_ingested;
+                    document.getElementById("detections-count").innerText = d.total_detections;
+                    document.getElementById("incidents-count").innerText = d.open_incidents;
+                } catch(e) {}
+            }
+            setInterval(updateDashboardMetrics, 3000);
+            updateDashboardMetrics();
+
+            async function runAdaptiveSimulation() {
+                logBox.prepend(Object.assign(document.createElement("div"), {
+                    innerText: "[SIMULATION] Launching T1110 Bounded Brute Force trial..."
+                }));
+                for (let i = 1; i <= 6; i++) {
+                    await fetch('/api/v1/events/ingest', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            source_type: 'target_app',
+                            source_name: 'target-web',
+                            event_type: 'auth_failure',
+                            source_ip: '172.31.10.15',
+                            destination_ip: '172.31.20.10',
+                            protocol: 'HTTP',
+                            severity: 'warning',
+                            metadata: {username: 'admin', attempt: i}
+                        })
+                    });
+                }
+                const incs = await (await fetch('/api/v1/incidents')).json();
+                if (incs.length > 0) {
+                    const lastInc = incs[incs.length - 1];
+                    logBox.prepend(Object.assign(document.createElement("div"), {
+                        innerText: `[INCIDENT] ${lastInc.incident_id} detected. Requesting Gemma AI analysis...`
+                    }));
+                    const analysis = await (await fetch(`/api/v1/incidents/${lastInc.incident_id}/analyze`, {method: 'POST'})).json();
+                    gemmaBox.innerHTML = `
+                        <p class="font-bold text-cyan-400 mb-1">Incident Summary:</p>
+                        <p class="mb-2 text-slate-300">${analysis.incident_summary}</p>
+                        <p class="font-bold text-amber-400 mb-1">Recommended Action:</p>
+                        <p class="mb-2 text-slate-300">${analysis.recommended_actions[0]?.module_id}.${analysis.recommended_actions[0]?.action_id} (${analysis.recommended_actions[0]?.reason})</p>
+                    `;
+                    const mit = await (await fetch(`/api/v1/incidents/${lastInc.incident_id}/mitigate`, {method: 'POST'})).json();
+                    logBox.prepend(Object.assign(document.createElement("div"), {
+                        innerText: `[DEFENSE] Mitigation applied: Gateway ACL blocked ${lastInc.source_identities[0]}`
+                    }));
+                    updateDashboardMetrics();
+                }
             }
 
-            async function stopTraining() {
-                await fetch('/api/v1/training/exp-live/stop', {method: 'POST'});
+            async function emergencyStop() {
+                await fetch('/api/v1/defense/emergency-stop', {method: 'POST'});
+                logBox.prepend(Object.assign(document.createElement("div"), {
+                    innerText: "[EMERGENCY STOP] All active blocks revoked. System in EMERGENCY_STOP state."
+                }));
+                updateDashboardMetrics();
             }
-
-            // Fetch initial report
-            fetch('/api/v1/experiments/exp-live/report').then(r => r.json()).then(data => {
-                const g = data.gemma_ai_explanation;
-                gemmaBox.innerHTML = `
-                    <p class="font-bold text-cyan-400 mb-1">Diagnosis:</p>
-                    <p class="mb-2">${g.incident_summary}</p>
-                    <p class="font-bold text-emerald-400 mb-1">Defensive Action:</p>
-                    <p class="mb-2">${g.defensive_action_explanation}</p>
-                    <p class="font-bold text-amber-400 mb-1">Outcome:</p>
-                    <p>${g.policy_outcome}</p>
-                `;
-            }).catch(() => {});
         </script>
     </body>
     </html>

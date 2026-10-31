@@ -1,0 +1,10 @@
+# AEGIS Suricata Detection Rules for Lab Environment
+# SID 1000001: Detect repeated authentication failure responses
+alert http any any -> any any (msg:"AEGIS_ALERT: Target Web Authentication Failure 401"; flow:established,to_client; file.data; content:"Invalid credentials"; sid:1000001; rev:1;)
+
+# SID 1000002: Detect Gateway 403 Forbidden enforcement
+alert http any any -> any any (msg:"AEGIS_DEFENSE: Gateway Source Block 403 Enforced"; flow:established,to_client; file.data; content:"Source IP blocked by AEGIS Dynamic Policy"; sid:1000002; rev:1;)
+
+# SID 1000003: High request surge / potential DoS
+alert http any any -> any any (msg:"AEGIS_ALERT: High Ingress Request Surge"; flow:to_server; threshold:type both, track by_src, count 20, seconds 5; sid:1000003; rev:1;)
+
