@@ -16,9 +16,12 @@ This directory contains the formal architectural specifications, technical propo
    - **Telemetry & Quantitative Metrics**: Mathematical definitions of $A_{\text{eff}}$, $MTTC$, $BRF$, and $RDI$.
    - **Implementation Acceptance Criteria**: Milestone criteria for M1 through M7.
 
+2. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
+   - Detailed specification of modular defense orchestration, defense state machine, and static vs. adaptive Docker evaluation.
+
 ---
 
 ### Documentation Conventions
-- All architectural updates, RFCs, and subsystem design documents must be placed in `system-docs/`.
-- Markdown files should be cross-linked using standard relative links (e.g. `[Context Document](context.md)`).
-- The root `README.md` should remain focused on high-level project overview, quickstart instructions, and live benchmark highlights.
+- All architectural updates, proposals, and design documents must be stored in `system-docs/`.
+- Markdown files are cross-linked using standard relative links.
+- The root `README.md` serves as the concise executive entry point, quickstart guide, and repository directory.

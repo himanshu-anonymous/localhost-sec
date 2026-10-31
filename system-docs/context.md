@@ -373,6 +373,14 @@ If Gemma is offline or unreachable:
 - Simulation, training, and DDPS proceed without interruption.
 - Dashboard displays an `Explanation Service Offline` badge.
 
+### 10.3 Multi-Key Environment Mapping
+To support simultaneous explanations and reasoning across parallel environments without hitting API rate limits:
+- `env_a_baseline` ── Uses `LOCALHOST_KEY1`
+- `env_b_adaptive` ── Uses `LOCALHOST_KEY2`
+- `env_c_hardened` ── Uses `LOCALHOST_KEY3`
+- `env_d_experimental` ── Uses `LOCALHOST_KEY4`
+All secrets are managed via local `.env` and kept strictly excluded from git tracking.
+
 ---
 
 # 11. Backend Repository Structure
@@ -383,7 +391,8 @@ localhost-sec/
 ├── run_m1_demo.py                      # Live terminal demonstration runner
 ├── system-docs/                        # 📚 System Architecture & Specifications
 │   ├── README.md                       # Documentation Index
-│   └── context.md                      # Baseline Architecture & Technical Spec v1.0
+│   ├── context.md                      # Baseline Architecture & Technical Spec v1.0
+│   └── aegis_modular_defense.md        # Modular Defense Proposal Reference
 ├── docker-compose.yml                  # Container Validation cyber-range
 ├── backend/
 │   ├── pyproject.toml / requirements.txt
