@@ -1,0 +1,79 @@
+services:
+  # Telemetry & Event Broker
+  redis:
+    image: redis:7-alpine
+    container_name: localhost-redis
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+    networks:
+      - localhost-net
+
+  # Docker Environment Worker A (Baseline)
+  worker-a:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: localhost-worker-a
+    ports:
+      - "8001:8000"
+    environment:
+      - ENV_ID=env_a_baseline
+      - SCENARIO_NAME=black_sky
+      - POLICY_PROFILE=baseline
+      - PORT=8000
+    networks:
+      - localhost-net
+
+  # Docker Environment Worker B (Adaptive DDPS + Shared PPO)
+  worker-b:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: localhost-worker-b
+    ports:
+      - "8002:8000"
+    environment:
+      - ENV_ID=env_b_adaptive
+      - SCENARIO_NAME=black_sky
+      - POLICY_PROFILE=none
+      - PORT=8000
+    networks:
+      - localhost-net
+
+  # Docker Environment Worker C (Hardened Zero-Trust)
+  worker-c:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: localhost-worker-c
+    ports:
+      - "8003:8000"
+    environment:
+      - ENV_ID=env_c_hardened
+      - SCENARIO_NAME=black_sky
+      - POLICY_PROFILE=hardened
+      - PORT=8000
+    networks:
+      - localhost-net
+
+  # Docker Environment Worker D (Experimental RL Agent)
+  worker-d:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: localhost-worker-d
+    ports:
+      - "8004:8000"
+    environment:
+      - ENV_ID=env_d_experimental
+      - SCENARIO_NAME=black_sky
+      - POLICY_PROFILE=none
+      - PORT=8000
+    networks:
+      - localhost-net
+
+networks:
+  localhost-net:
+    name: localhost-net
+    driver: bridge
