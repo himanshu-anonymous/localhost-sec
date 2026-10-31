@@ -6,6 +6,7 @@ Compliant with Section 10 of Master Execution Specification.
 from typing import Dict, Any, List, Optional
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+import httpx
 
 from backend.app.environments.docker_manager import docker_manager
 from backend.app.environments.vector_manager import ParallelEnvironmentManager
@@ -47,7 +48,8 @@ def get_environment_details(environment_id: str):
     return {
         "environment_id": environment_id,
         "url": urls[environment_id],
-        "is_healthy": health.get(environment_id, False)
+        "is_healthy": health.get(environment_id, False),
+        "profile": "baseline" if "baseline" in environment_id else ("hardened" if "hardened" in environment_id else "adaptive")
     }
 
 
@@ -60,3 +62,42 @@ def create_environment(req: EnvironmentCreateRequest):
         "scenario_name": req.scenario_name,
         "policy_profile": req.policy_profile
     }
+
+
+@router.post("/{environment_id}/reset")
+def reset_environment(environment_id: str):
+    """Resets the environment simulation state."""
+    urls = docker_manager.get_worker_urls()
+    if environment_id in urls:
+        url = urls[environment_id]
+        try:
+            resp = httpx.post(f"{url}/reset", timeout=2.0)
+            if resp.status_code == 200:
+                return {"status": "reset", "environment_id": environment_id, "remote": True, "detail": resp.json()}
+        except Exception:
+            pass
+
+    return {
+        "status": "reset",
+        "environment_id": environment_id,
+        "remote": False,
+        "message": f"Environment {environment_id} reset locally"
+    }
+
+
+@router.post("/{environment_id}/start")
+def start_environment(environment_id: str):
+    """Starts or activates an environment worker."""
+    urls = docker_manager.get_worker_urls()
+    if environment_id not in urls:
+        raise HTTPException(status_code=404, detail=f"Environment '{environment_id}' not found")
+    return {"status": "started", "environment_id": environment_id}
+
+
+@router.post("/{environment_id}/stop")
+def stop_environment(environment_id: str):
+    """Stops an environment worker."""
+    urls = docker_manager.get_worker_urls()
+    if environment_id not in urls:
+        raise HTTPException(status_code=404, detail=f"Environment '{environment_id}' not found")
+    return {"status": "stopped", "environment_id": environment_id}

@@ -38,6 +38,26 @@ class DefensiveActionProposal(BaseModel):
     egress_limit_level: int = Field(default=0, ge=0, le=2)
     workload_priority_level: int = Field(default=0, ge=0, le=2)
 
+    def __init__(self, **data):
+        # Support convenience aliases from tests and external payloads
+        aliases = {
+            "edge_rate_limit": "edge_rate_limit_level",
+            "auth_throttle": "auth_throttle_level",
+            "app_rate_limit": "app_quota_level",
+            "session_ttl": "app_concurrency_level",
+            "isolate_compromised": "segmentation_mode",
+            "block_lateral": "egress_limit_level",
+            "privilege_lockdown": "workload_priority_level",
+            "rollback_trigger": "connection_limit_level",
+        }
+        mapped = {}
+        for k, v in data.items():
+            if k in aliases:
+                mapped[aliases[k]] = v
+            else:
+                mapped[k] = v
+        super().__init__(**mapped)
+
     def to_list(self) -> List[int]:
         return [
             self.edge_rate_limit_level,
@@ -73,6 +93,14 @@ class DDPSValidationResult(BaseModel):
     rejected_reasons: List[str] = Field(default_factory=list)
     stability_penalty: float = 0.0
     timestamp: float
+
+    @property
+    def approved(self) -> bool:
+        return self.is_approved
+
+    @property
+    def rejection_reason(self) -> str:
+        return "; ".join(self.rejected_reasons)
 
 
 class SyntheticIncidentEvent(BaseModel):

@@ -69,6 +69,9 @@ class PPOAgent:
         device: Optional[str] = "cpu"
     ):
         self.device = device or "cpu"
+        self.obs_dim = obs_dim
+        self.num_actions = num_actions
+        self.action_levels = action_levels
         self.gamma = gamma
         self.gae_lambda = gae_lambda
         self.clip_epsilon = clip_epsilon
@@ -109,6 +112,9 @@ class PPOAgent:
                 log_prob_sum += float(dist.log_prob(a).item())
 
         return actions, log_prob_sum, float(value.item())
+
+    # Compatibility alias for select_action
+    get_action = select_action
 
     def record_transition(
         self,

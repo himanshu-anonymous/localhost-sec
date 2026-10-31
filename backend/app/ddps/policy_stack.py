@@ -3,7 +3,7 @@ Dynamic Defensive Policy Stack (DDPS) & Invariant Validator.
 Compliant with Section 7 of Formal Specification v1.0.
 """
 
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Dict, Any
 import copy
 from backend.app.schemas.models import DefensiveActionProposal, DDPSValidationResult
 
@@ -23,6 +23,22 @@ class DynamicDefensivePolicyStack:
         self.audit_log: List[DDPSValidationResult] = []
         self.rejected_count = 0
         self.approved_count = 0
+
+    def validate_action(
+        self,
+        proposed_action: DefensiveActionProposal,
+        current_step: int = 1,
+        current_state: Optional[Dict] = None,
+        attempted_illegal_bypass: bool = False
+    ) -> DDPSValidationResult:
+        """Alias for validate_and_enforce with optional state checks."""
+        if current_state and current_state.get("auth_service_disabled"):
+            attempted_illegal_bypass = True
+        return self.validate_and_enforce(
+            proposed_action=proposed_action,
+            current_step=current_step,
+            attempted_illegal_bypass=attempted_illegal_bypass
+        )
 
     def validate_and_enforce(
         self,
@@ -54,7 +70,7 @@ class DynamicDefensivePolicyStack:
         # Stage 3: Hard Security Invariants (Omega)
         # Omega 1 & 2: Invariant compliance flag
         if attempted_illegal_bypass:
-            rejection_reasons.append("Omega Violation: Attempted authentication or authorization bypass")
+            rejection_reasons.append("Omega Violation (OMEGA_1): Attempted authentication or authorization bypass")
 
         # Omega 3: Segmentation mode must never be negative or unverified
         if proposed_action.segmentation_mode < 0 or proposed_action.segmentation_mode > 2:

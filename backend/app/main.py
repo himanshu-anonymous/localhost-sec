@@ -5,6 +5,7 @@ Compliant with Section 10 of Master Execution Specification & Hybrid Database Ar
 
 import os
 import sys
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -19,15 +20,29 @@ from backend.app.api.routes_metrics import router as router_metrics
 from backend.app.api.websocket_handler import router as router_websocket
 from backend.app.api.routes_mitre import router as router_mitre
 from backend.app.api.routes_simulations import router as router_simulations
+from backend.app.api.routes_policy import router as router_policy
 from backend.app.environments.docker_manager import docker_manager
 from backend.app.orchestrator.training_service import trainer_service
 from backend.db.postgres import init_db
 from backend.db.seed import seed_database
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Initialises persistent schema and seeds environments & MITRE container techniques."""
+    try:
+        init_db()
+        seed_database()
+    except Exception as e:
+        print(f"[Warning] Database initialization or seeding deferred: {e}")
+    yield
+
+
 app = FastAPI(
     title="localhost (BASTION X) — Orchestrator API",
     description="Adaptive Multi-Layer Network Defence Simulator Orchestration Core",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
 
 # CORS configuration for frontend
@@ -47,16 +62,7 @@ app.include_router(router_metrics)
 app.include_router(router_websocket)
 app.include_router(router_mitre)
 app.include_router(router_simulations)
-
-
-@app.on_event("startup")
-def on_startup():
-    """Initialises persistent schema and seeds environments & MITRE container techniques."""
-    try:
-        init_db()
-        seed_database()
-    except Exception as e:
-        print(f"[Warning] Database initialization or seeding deferred: {e}")
+app.include_router(router_policy)
 
 
 @app.get("/")
@@ -70,7 +76,8 @@ def root():
         "documentation": "/docs",
         "live_dashboard": "/dashboard",
         "mitre_catalog": "/api/mitre/techniques",
-        "simulations": "/api/simulations"
+        "simulations": "/api/simulations",
+        "policy_metadata": "/api/v1/policy/metadata"
     }
 
 

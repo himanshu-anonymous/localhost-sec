@@ -63,12 +63,13 @@ class ParallelEnvironmentManager:
             )
         }
 
-    def reset(self) -> Tuple[Dict[str, np.ndarray], Dict[str, Dict[str, Any]]]:
+    def reset(self, seed: Optional[int] = None) -> Tuple[Dict[str, np.ndarray], Dict[str, Dict[str, Any]]]:
         """Resets all 4 environments independently."""
         obs_dict = {}
         info_dict = {}
-        for env_id, env in self.environments.items():
-            obs, info = env.reset()
+        for idx, (env_id, env) in enumerate(self.environments.items()):
+            s = (seed + idx) if seed is not None else None
+            obs, info = env.reset(seed=s)
             obs_dict[env_id] = obs
             info_dict[env_id] = info
         return obs_dict, info_dict

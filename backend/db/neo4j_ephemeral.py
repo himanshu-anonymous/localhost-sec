@@ -303,7 +303,7 @@ class EphemeralGraphManager:
                             "edges": record["edges"] or [],
                         }
                     await session.run("MATCH (n {run_id: $run_id}) DETACH DELETE n", run_id=run_id)
-                return snapshot
+                return self._sanitize_for_json(snapshot)
             except Exception:
                 pass
 
@@ -313,7 +313,19 @@ class EphemeralGraphManager:
                 "nodes": list(g["nodes"].values()),
                 "edges": g["edges"],
             }
-        return snapshot
+        return self._sanitize_for_json(snapshot)
+
+    @staticmethod
+    def _sanitize_for_json(val):
+        if isinstance(val, dict):
+            return {k: EphemeralGraphManager._sanitize_for_json(v) for k, v in val.items()}
+        elif isinstance(val, list):
+            return [EphemeralGraphManager._sanitize_for_json(v) for v in val]
+        elif hasattr(val, "isoformat"):
+            return val.isoformat()
+        elif hasattr(val, "__str__") and type(val).__name__ in ("DateTime", "Date", "Time"):
+            return str(val)
+        return val
 
     @asynccontextmanager
     async def simulation_graph_scope(self, run_id: str, env_id: str, topology_template: dict):

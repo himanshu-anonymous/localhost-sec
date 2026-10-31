@@ -33,6 +33,17 @@ def test_environments_endpoints():
     assert resp_single.status_code == 200
     assert resp_single.json()["environment_id"] == "env_b_adaptive"
 
+    # POST /api/v1/environments/{id}/reset
+    resp_reset = client.post("/api/v1/environments/env_b_adaptive/reset")
+    assert resp_reset.status_code == 200
+    assert resp_reset.json()["status"] == "reset"
+
+    # POST /api/v1/environments/{id}/start & stop
+    resp_start = client.post("/api/v1/environments/env_b_adaptive/start")
+    assert resp_start.status_code == 200
+    resp_stop = client.post("/api/v1/environments/env_b_adaptive/stop")
+    assert resp_stop.status_code == 200
+
 
 def test_scenarios_endpoints():
     # GET /api/v1/scenarios
@@ -72,6 +83,29 @@ def test_training_lifecycle_endpoints():
     # POST /api/v1/training/{id}/stop
     resp_stop = client.post("/api/v1/training/exp-test-01/stop")
     assert resp_stop.status_code == 200
+
+
+def test_policy_metadata_and_checkpoint_endpoints():
+    # GET /api/v1/policy/metadata
+    resp_meta = client.get("/api/v1/policy/metadata")
+    assert resp_meta.status_code == 200
+    meta = resp_meta.json()
+    assert meta["algorithm"] == "PPO (Proximal Policy Optimization)"
+    assert meta["observation_dimension"] == 14
+    assert meta["action_heads"] == 8
+    assert len(meta["security_invariants"]) == 5
+
+    # GET /api/v1/policy/checkpoint
+    resp_ckpt = client.get("/api/v1/policy/checkpoint")
+    assert resp_ckpt.status_code == 200
+    ckpt = resp_ckpt.json()
+    assert "checkpoint_path" in ckpt
+    assert "exists" in ckpt
+
+    # GET /api/v1/policy/actions
+    resp_act = client.get("/api/v1/policy/actions")
+    assert resp_act.status_code == 200
+    assert "actions" in resp_act.json()
 
 
 def test_metrics_and_report_endpoints():
