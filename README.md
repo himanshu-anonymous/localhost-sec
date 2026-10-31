@@ -133,6 +133,163 @@ localhost-sec/
 
 Detailed technical documentation, mathematical models, MITRE ATT&CK mapping, and system designs are maintained in the [`system-docs/`](system-docs/) folder:
 
+<<<<<<< HEAD
 - [**System Specification & Context (`system-docs/context.md`)**](system-docs/context.md): Full technical specification v1.0, mathematical state formulations, DDPS finite state machine, and roadmap.
 - [**AEGIS Modular Defense Reference (`system-docs/aegis_modular_defense.md`)**](system-docs/aegis_modular_defense.md): In-depth modular defense architecture and state machine reference.
 - [**Documentation Index (`system-docs/README.md`)**](system-docs/README.md): Guide to system documentation conventions.
+=======
+### Phase 1 --- Infrastructure and baseline
+
+-   [ ] Create isolated Docker environments.
+-   [ ] Deploy the same application in static and adaptive environments.
+-   [ ] Configure Nginx.
+-   [ ] Implement basic authentication and RBAC.
+-   [ ] Implement baseline rate limiting.
+-   [ ] Build the initial React dashboard.
+
+**Deliverable:** Two functioning environments with equivalent baseline
+security controls.
+
+### Phase 2 --- Adaptive defense
+
+-   [ ] Implement common defense-module interfaces.
+-   [ ] Build the five-state defense state machine.
+-   [ ] Implement event normalization.
+-   [ ] Build the deterministic policy engine.
+-   [ ] Implement dynamic rate-limit configuration.
+-   [ ] Add network isolation and rollback.
+-   [ ] Verify configuration changes after application.
+
+**Deliverable:** A functioning adaptive defense orchestrator.
+
+### Phase 3 --- AI and monitoring
+
+-   [ ] Integrate the Gemma API.
+-   [ ] Implement incident analysis.
+-   [ ] Implement structured AI recommendations.
+-   [ ] Add security-event monitoring.
+-   [ ] Add real-time WebSocket updates.
+-   [ ] Build network topology visualization.
+-   [ ] Display AI explanations in the dashboard.
+
+**Deliverable:** An AI-assisted security monitoring dashboard.
+
+### Phase 4 --- Testing and evaluation
+
+-   [ ] Implement predefined attack scenarios.
+-   [ ] Test individual and combined scenarios.
+-   [ ] Measure static versus adaptive performance.
+-   [ ] Test AI service failure and deterministic fallback.
+-   [ ] Test rollback and recovery.
+-   [ ] Generate experiment reports.
+-   [ ] Document limitations and results.
+
+**Deliverable:** A repeatable demonstration and experimental comparison.
+
+------------------------------------------------------------------------
+
+## Security and Safety Design
+
+Security controls must remain effective even when the orchestration or
+AI layer experiences failures.
+
+Key requirements:
+
+-   Keep the attack simulation environment isolated from public and
+    production networks.
+-   Use predefined simulation scenarios with bounded parameters.
+-   Never expose the Docker privileged socket to the frontend or AI
+    service.
+-   Do not allow arbitrary shell commands through APIs or AI responses.
+-   Preserve authentication and authorization during all defense-state
+    transitions.
+-   Validate every proposed configuration against an allowlist and
+    explicit limits.
+-   Require administrator approval for disruptive actions such as
+    workload isolation.
+-   Keep versioned configurations and known-good rollback policies.
+-   Authenticate and authorize administrative APIs.
+-   Store API credentials in environment variables or a secrets manager.
+-   Redact tokens, passwords, and other secrets before sending telemetry
+    to an external AI API.
+-   Maintain audit records for policy changes, approvals, and execution
+    results.
+-   Ensure the deterministic defense engine remains operational if Gemma
+    is unavailable.
+
+## Expected Demonstration
+
+The intended hackathon demonstration follows this sequence:
+
+1.  Start the static and adaptive environments.
+2.  Display their baseline security configurations.
+3.  Launch a controlled traffic-overload scenario.
+4.  Observe detection events in both environments.
+5.  Show the adaptive environment transitioning from `NORMAL` to
+    `GUARDED` and then `ADAPTIVE`.
+6.  Display the relevant defense modules being reconfigured.
+7.  Introduce a separate authentication or session-abuse scenario.
+8.  Show identity and session protections responding without disabling
+    foundational controls.
+9.  Display Gemma's incident analysis and recommendations.
+10. Show the experiment comparison with measured availability, latency,
+    mitigation time, and recovery time.
+
+The final demonstration should make the adaptive changes visible and
+show their actual effect on the protected test services.
+
+------------------------------------------------------------------------
+
+## Project Status
+
+**Current stage:** Architecture and design finalized; implementation
+planned.
+
+Planned milestones:
+
+-   [ ] Repository initialization
+-   [ ] Docker environment setup
+-   [ ] Static baseline deployment
+-   [ ] Adaptive environment deployment
+-   [ ] Defense module framework
+-   [ ] Orchestrator and state machine
+-   [ ] Telemetry and detection
+-   [ ] Gemma integration
+-   [ ] Dashboard implementation
+-   [ ] Experimental evaluation
+
+## Contributing
+
+Contributions are welcome as the project moves into implementation.
+
+Suggested areas:
+
+-   Frontend and dashboard development.
+-   Backend APIs and orchestration.
+-   Network security and defense modules.
+-   Attack simulation and test scenarios.
+-   Gemma integration and structured output validation.
+-   Experiment design and performance evaluation.
+-   Documentation and testing.
+
+For substantial changes, discuss the proposed design before submitting a
+pull request.
+
+## License
+
+License to be selected by the project maintainers.
+
+------------------------------------------------------------------------
+
+```{=html}
+<p align="center">
+```
+`<strong>`{=html}AEGIS --- Adapt. Defend.
+Recover.`</strong>`{=html}`<br>`{=html} `<sub>`{=html}Building a
+measurable, modular and adaptive approach to cybersecurity
+defense.`</sub>`{=html}
+```{=html}
+</p>
+```
+
+>>>>>>> e6492d6 (Frontend first push)
