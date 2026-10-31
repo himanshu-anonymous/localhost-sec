@@ -1,0 +1,44 @@
+{
+    "T1110": {
+        "scenario": "brute_force",
+        "detector": "failed_login_detector",
+        "defense_modules": [
+            "identity_guard",
+            "rate_limiter"
+        ],
+        "status": "planned"
+    },
+    "T1498": {
+        "scenario": "bounded_http_load",
+        "detector": "traffic_anomaly_detector",
+        "defense_modules": [
+            "traffic_shield",
+            "rate_limiter"
+        ],
+        "status": "planned"
+    },
+    "T1613": {
+        "scenario": "container_discovery",
+        "detector": "container_inventory_detector",
+        "defense_modules": [
+            "network_segmentation"
+        ],
+        "status": "planned"
+    },
+    "T1046": {
+        "scenario": "service_discovery",
+        "detector": "service_probe_detector",
+        "defense_modules": [
+            "network_segmentation"
+        ],
+        "status": "planned"
+    },
+    "T1550": {
+        "scenario": "synthetic_session_replay",
+        "detector": "session_replay_detector",
+        "defense_modules": [
+            "session_guardian"
+        ],
+        "status": "planned"
+    }
+}
