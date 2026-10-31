@@ -66,6 +66,8 @@ app.include_router(router_policy)
 
 
 @app.get("/")
+@app.get("/health")
+@app.get("/api/v1/health")
 def root():
     return {
         "project": "localhost (BASTION X)",
@@ -83,7 +85,11 @@ def root():
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def embedded_dashboard():
-    """Lightweight real-time visualizer dashboard embedded directly in FastAPI."""
+    """Renders the presentation-ready BASTION X Command Deck."""
+    frontend_index = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "index.html")
+    if os.path.exists(frontend_index):
+        with open(frontend_index, "r", encoding="utf-8") as f:
+            return f.read()
     return """
     <!DOCTYPE html>
     <html lang="en">

@@ -1,0 +1,12 @@
+{
+  "name": "localhost-bastion-x-frontend",
+  "version": "1.0.0",
+  "description": "BASTION X - Adaptive Multi-Layer Network Defence Simulator UI",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["cybersecurity", "reinforcement-learning", "bastion-x", "ddps"],
+  "author": "localhost-sec",
+  "license": "MIT"
+}
