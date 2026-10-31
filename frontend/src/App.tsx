@@ -14,6 +14,7 @@ import { SimulationsView } from './components/SimulationsView';
 import { PolicyStackView } from './components/PolicyStackView';
 import { CyberRangeView } from './components/CyberRangeView';
 import { AiReasoningView } from './components/AiReasoningView';
+import { TerminalCLI } from './components/TerminalCLI';
 
 import { 
   fetchExperimentReport, 
@@ -123,12 +124,13 @@ export const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleRunSimulation = async () => {
+  const handleRunSimulation = async (scenario?: string) => {
+    const sc = scenario || selectedScenario;
     try {
       setIsRunning(true);
       await startSimulation({
         experiment_id: 'exp-live',
-        scenario_name: selectedScenario,
+        scenario_name: sc,
         max_episodes: 2,
         steps_per_episode: 50,
         use_docker: false
@@ -136,6 +138,7 @@ export const App: React.FC = () => {
     } catch (e) {
       console.error('Failed to trigger simulation:', e);
       setIsRunning(false);
+      throw e;
     }
   };
 
@@ -145,6 +148,7 @@ export const App: React.FC = () => {
       setIsRunning(false);
     } catch (e) {
       console.error('Failed to stop simulation:', e);
+      throw e;
     }
   };
 
@@ -188,10 +192,11 @@ export const App: React.FC = () => {
       <Sidebar currentTab={currentTab} onTabChange={setCurrentTab} />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        {/* Top Header */}
         <Header 
           isRunning={isRunning}
-          onRunSimulation={handleRunSimulation}
+          onRunSimulation={() => handleRunSimulation()}
           onStopSimulation={handleStopSimulation}
           selectedScenario={selectedScenario}
           onSelectScenario={setSelectedScenario}
@@ -204,144 +209,193 @@ export const App: React.FC = () => {
           episode={currentEpisode}
         />
 
-        <main className="p-8 space-y-8 max-w-7xl">
-          {currentTab === 'overview' && (
-            <>
-              {/* 1. Top KPI Summary Cards */}
-              <MetricsCards 
-                adaptiveAvailability={adaptiveAvail}
-                baselineAvailability={baselineAvail}
-                containmentTime={adaptiveContainment}
-                adaptiveBlastRadius={adaptiveBlast}
-                baselineBlastRadius={baselineBlast}
+        {/* Scrollable Dashboard Viewport */}
+        <div className="flex-1 overflow-y-auto">
+          <main className="p-8 space-y-8 max-w-7xl pb-24">
+            {currentTab === 'overview' && (
+              <>
+                {/* 1. Top KPI Summary Cards */}
+                <MetricsCards 
+                  adaptiveAvailability={adaptiveAvail}
+                  baselineAvailability={baselineAvail}
+                  containmentTime={adaptiveContainment}
+                  adaptiveBlastRadius={adaptiveBlast}
+                  baselineBlastRadius={baselineBlast}
+                />
+
+                {/* 2. Interactive 4 Parallel Instance Cards (Click to inspect protocol simulation) */}
+                <InstanceCards 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveBlast={adaptiveBlast}
+                  hardenedBlast={hardenedBlast}
+                  experimentalBlast={experimentalBlast}
+                  adaptiveContainment={adaptiveContainment}
+                  onSelectInstance={handleSelectInstance}
+                  selectedInstanceId={selectedModalInstance}
+                />
+
+                {/* 3. Availability Comparison Bar Chart & DDPS Guard */}
+                <AvailabilitySection 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                />
+
+                {/* 4. Black Sky Benchmark Table */}
+                <BenchmarkTable 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveBlast={adaptiveBlast}
+                  hardenedBlast={hardenedBlast}
+                  experimentalBlast={experimentalBlast}
+                  mttcAdaptive={adaptiveContainment}
+                  rdiAdaptive={rdiAdaptive}
+                  rdiBaseline={rdiBaseline}
+                  onSelectInstance={handleSelectInstance}
+                />
+
+                {/* 5. One Policy Stack, Three Isolated Domains */}
+                <ThreeDomains />
+
+                {/* 6. Defence Process Comparison */}
+                <DefenceProcessComparison 
+                  baselineAvail={baselineAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveAvail={adaptiveAvail}
+                  adaptiveBlast={adaptiveBlast}
+                  adaptiveContainment={adaptiveContainment}
+                />
+
+                {/* 7. Benchmark Visualizations */}
+                <BenchmarkVisualizations 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveBlast={adaptiveBlast}
+                  hardenedBlast={hardenedBlast}
+                  experimentalBlast={experimentalBlast}
+                  adaptiveContainment={adaptiveContainment}
+                  rdiBaseline={rdiBaseline}
+                  rdiAdaptive={rdiAdaptive}
+                />
+
+                {/* 8. Scenario Attacks */}
+                <ScenarioAttacks />
+              </>
+            )}
+
+            {currentTab === 'simulations' && (
+              <SimulationsView 
+                currentStep={currentStep}
+                simTime={simTime}
               />
+            )}
 
-              {/* 2. Interactive 4 Parallel Instance Cards (Click to inspect protocol simulation) */}
-              <InstanceCards 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
-                baselineBlast={baselineBlast}
-                adaptiveBlast={adaptiveBlast}
-                hardenedBlast={hardenedBlast}
-                experimentalBlast={experimentalBlast}
-                adaptiveContainment={adaptiveContainment}
-                onSelectInstance={handleSelectInstance}
-                selectedInstanceId={selectedModalInstance}
+            {currentTab === 'policy-stack' && (
+              <PolicyStackView 
+                enforcedPolicy={enforcedPolicy}
               />
+            )}
 
-              {/* 3. Availability Comparison Bar Chart & DDPS Guard */}
-              <AvailabilitySection 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
+            {currentTab === 'cyber-range' && (
+              <CyberRangeView />
+            )}
+
+            {currentTab === 'benchmarks' && (
+              <div className="space-y-6">
+                <BenchmarkTable 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveBlast={adaptiveBlast}
+                  hardenedBlast={hardenedBlast}
+                  experimentalBlast={experimentalBlast}
+                  mttcAdaptive={adaptiveContainment}
+                  rdiAdaptive={rdiAdaptive}
+                  rdiBaseline={rdiBaseline}
+                  onSelectInstance={handleSelectInstance}
+                />
+                <BenchmarkVisualizations 
+                  baselineAvail={baselineAvail}
+                  adaptiveAvail={adaptiveAvail}
+                  hardenedAvail={hardenedAvail}
+                  experimentalAvail={experimentalAvail}
+                  baselineBlast={baselineBlast}
+                  adaptiveBlast={adaptiveBlast}
+                  hardenedBlast={hardenedBlast}
+                  experimentalBlast={experimentalBlast}
+                  adaptiveContainment={adaptiveContainment}
+                  rdiBaseline={rdiBaseline}
+                  rdiAdaptive={rdiAdaptive}
+                />
+              </div>
+            )}
+
+            {currentTab === 'ai-reasoning' && (
+              <AiReasoningView 
+                explanation={report?.gemma_ai_explanation}
               />
+            )}
 
-              {/* 4. Black Sky Benchmark Table */}
-              <BenchmarkTable 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
-                baselineBlast={baselineBlast}
-                adaptiveBlast={adaptiveBlast}
-                hardenedBlast={hardenedBlast}
-                experimentalBlast={experimentalBlast}
-                mttcAdaptive={adaptiveContainment}
-                rdiAdaptive={rdiAdaptive}
-                rdiBaseline={rdiBaseline}
-                onSelectInstance={handleSelectInstance}
-              />
+            {currentTab === 'terminal' && (
+              <div className="space-y-4">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900 tracking-tight">Dedicated Cyber-Range Terminal Console</h2>
+                  <p className="text-xs text-slate-500 mt-0.5">Direct CLI control for instance navigation, dynamic protocol triggers, and simulation lifecycle</p>
+                </div>
+                <div className="p-4 bg-white border border-slate-200 rounded-lg text-xs text-slate-600">
+                  <p className="font-semibold text-slate-800 mb-2">Available Command Quick Reference:</p>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] font-mono">
+                    <li><span className="text-[#dc2626] font-bold">start [scenario]</span> : Launch parallel simulation</li>
+                    <li><span className="text-[#dc2626] font-bold">stop</span> : Terminate active run</li>
+                    <li><span className="text-[#dc2626] font-bold">instances</span> : Print live metrics for all 4 instances</li>
+                    <li><span className="text-[#dc2626] font-bold">inspect &lt;a|b|c|d&gt;</span> : Open protocol inspector modal</li>
+                    <li><span className="text-[#dc2626] font-bold">protocols &lt;a|b&gt;</span> : Display OSI dynamic modulation</li>
+                    <li><span className="text-[#dc2626] font-bold">topology</span> : Print 8-node canonical status</li>
+                    <li><span className="text-[#dc2626] font-bold">gemma</span> : Fetch Gemma 4 AI root-cause report</li>
+                    <li><span className="text-[#dc2626] font-bold">clear</span> : Clear console buffer</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+          </main>
+        </div>
 
-              {/* 5. One Policy Stack, Three Isolated Domains */}
-              <ThreeDomains />
-
-              {/* 6. Defence Process Comparison */}
-              <DefenceProcessComparison 
-                baselineAvail={baselineAvail}
-                baselineBlast={baselineBlast}
-                adaptiveAvail={adaptiveAvail}
-                adaptiveBlast={adaptiveBlast}
-                adaptiveContainment={adaptiveContainment}
-              />
-
-              {/* 7. Benchmark Visualizations */}
-              <BenchmarkVisualizations 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
-                baselineBlast={baselineBlast}
-                adaptiveBlast={adaptiveBlast}
-                hardenedBlast={hardenedBlast}
-                experimentalBlast={experimentalBlast}
-                adaptiveContainment={adaptiveContainment}
-                rdiBaseline={rdiBaseline}
-                rdiAdaptive={rdiAdaptive}
-              />
-
-              {/* 8. Scenario Attacks */}
-              <ScenarioAttacks />
-            </>
-          )}
-
-          {currentTab === 'simulations' && (
-            <SimulationsView 
-              currentStep={currentStep}
-              simTime={simTime}
-            />
-          )}
-
-          {currentTab === 'policy-stack' && (
-            <PolicyStackView 
-              enforcedPolicy={enforcedPolicy}
-            />
-          )}
-
-          {currentTab === 'cyber-range' && (
-            <CyberRangeView />
-          )}
-
-          {currentTab === 'benchmarks' && (
-            <div className="space-y-6">
-              <BenchmarkTable 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
-                baselineBlast={baselineBlast}
-                adaptiveBlast={adaptiveBlast}
-                hardenedBlast={hardenedBlast}
-                experimentalBlast={experimentalBlast}
-                mttcAdaptive={adaptiveContainment}
-                rdiAdaptive={rdiAdaptive}
-                rdiBaseline={rdiBaseline}
-                onSelectInstance={handleSelectInstance}
-              />
-              <BenchmarkVisualizations 
-                baselineAvail={baselineAvail}
-                adaptiveAvail={adaptiveAvail}
-                hardenedAvail={hardenedAvail}
-                experimentalAvail={experimentalAvail}
-                baselineBlast={baselineBlast}
-                adaptiveBlast={adaptiveBlast}
-                hardenedBlast={hardenedBlast}
-                experimentalBlast={experimentalBlast}
-                adaptiveContainment={adaptiveContainment}
-                rdiBaseline={rdiBaseline}
-                rdiAdaptive={rdiAdaptive}
-              />
-            </div>
-          )}
-
-          {currentTab === 'ai-reasoning' && (
-            <AiReasoningView 
-              explanation={report?.gemma_ai_explanation}
-            />
-          )}
-        </main>
+        {/* Docked Interactive Terminal CLI (Sticky bottom console) */}
+        <TerminalCLI
+          isRunning={isRunning}
+          onStartSimulation={handleRunSimulation}
+          onStopSimulation={handleStopSimulation}
+          onInspectInstance={handleSelectInstance}
+          baselineAvail={baselineAvail}
+          adaptiveAvail={adaptiveAvail}
+          hardenedAvail={hardenedAvail}
+          experimentalAvail={experimentalAvail}
+          baselineBlast={baselineBlast}
+          adaptiveBlast={adaptiveBlast}
+          hardenedBlast={hardenedBlast}
+          experimentalBlast={experimentalBlast}
+          adaptiveContainment={adaptiveContainment}
+          rdiBaseline={rdiBaseline}
+          rdiAdaptive={rdiAdaptive}
+          currentStep={currentStep}
+          currentEpisode={currentEpisode}
+          simTime={simTime}
+          report={report}
+          enforcedPolicy={enforcedPolicy}
+        />
       </div>
 
       {/* Instance Simulation Detail & Protocol Inspector Modal */}
