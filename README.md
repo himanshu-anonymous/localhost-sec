@@ -147,7 +147,10 @@ localhost-sec/
 │   │   ├── ddps/                       # Dynamic Defensive Policy Stack & Invariants (Omega)
 │   │   ├── rl/                         # Shared PPO agent (PyTorch actor-critic)
 │   │   └── gemma/                      # Gemma 4 Reasoning Service & multi-key rotation
-│   └── tests/                          # 23 automated acceptance & integration tests
+│   └── tests/                          # 25 automated acceptance & integration tests
+├── frontend/                           # 🖥️ Interactive React + Vite + Tailwind CSS Dashboard
+│   ├── src/                            # Real-time cyber range, telemetry, & AI reasoning UI
+│   └── dist/                           # Compiled production SPA (served directly by FastAPI)
 └── models/
     └── checkpoints/                    # Saved PyTorch policy checkpoints
 ```
@@ -162,4 +165,5 @@ Detailed technical documentation, mathematical models, MITRE ATT&CK mapping, and
 - [**Master Database Architecture (`system-docs/DATABASE_ARCHITECTURE.md`)**](system-docs/DATABASE_ARCHITECTURE.md): Persistent Relational Store (PostgreSQL 16) + Ephemeral Runtime Graph (Neo4j 5).
 - [**MITRE ATT&CK Containers Integration Guide (`system-docs/MITRE.md`)**](system-docs/MITRE.md): Enterprise Containers platform technique catalog and emulation procedures.
 - [**AEGIS Modular Defense Reference (`system-docs/aegis_modular_defense.md`)**](system-docs/aegis_modular_defense.md): In-depth modular defense architecture and state machine reference.
+- [**Frontend Integration Guide (`system-docs/FRONTEND_INTEGRATION.md`)**](system-docs/FRONTEND_INTEGRATION.md): Complete REST & WebSocket API contract for the React dashboard.
 - [**Documentation Index (`system-docs/README.md`)**](system-docs/README.md): Guide to system documentation conventions.

@@ -14,7 +14,7 @@ env.bak/
 venv.bak/
 build/
 develop-eggs/
-dist/
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -57,10 +57,12 @@ lerna-debug.log*
 
 # Vite / Frontend build artifacts
 frontend/node_modules/
-frontend/dist/
+# frontend/dist/ is tracked for standalone zero-npm production deployment
+!frontend/dist/
+!frontend/dist/**
 frontend/dist-ssr/
 frontend/.vite/
-dist/
+/dist/
 
 # ==========================================
 # Environment Variables & Secrets

@@ -29,7 +29,7 @@ This directory contains the formal architectural specifications, technical propo
 4. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
    - Detailed specification of modular defense orchestration, defense state machine, and static vs. adaptive Docker evaluation.
 
-5. [**Frontend Integration Guide & Contract Specification (`../documentation/FRONTEND_INTEGRATION.md`)**](../documentation/FRONTEND_INTEGRATION.md)
+5. [**Frontend Integration Guide & Contract Specification (`FRONTEND_INTEGRATION.md`)**](FRONTEND_INTEGRATION.md)
    - Interface specification for `origin/trisha_frontend` (REST endpoints, WebSocket schemas, Pydantic data contracts).
 
 ---
