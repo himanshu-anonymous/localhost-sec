@@ -392,6 +392,7 @@ localhost-sec/
 ├── system-docs/                        # 📚 System Architecture & Specifications
 │   ├── README.md                       # Documentation Index
 │   ├── context.md                      # Baseline Architecture & Technical Spec v1.0
+│   ├── MITRE.md                        # MITRE ATT&CK Container Platform Guide
 │   └── aegis_modular_defense.md        # Modular Defense Proposal Reference
 ├── docker-compose.yml                  # Container Validation cyber-range
 ├── backend/

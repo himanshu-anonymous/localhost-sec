@@ -16,7 +16,12 @@ This directory contains the formal architectural specifications, technical propo
    - **Telemetry & Quantitative Metrics**: Mathematical definitions of $A_{\text{eff}}$, $MTTC$, $BRF$, and $RDI$.
    - **Implementation Acceptance Criteria**: Milestone criteria for M1 through M7.
 
-2. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
+2. [**MITRE ATT&CK Integration Guide for Enterprise Containers (`MITRE.md`)**](MITRE.md)
+   - Scope: Enterprise ATT&CK domain filtered to the `Containers` platform.
+   - 9 Tactic mappings: Initial Access, Execution, Persistence, Privilege Escalation, Credential Access, Discovery, Lateral Movement, Exfiltration, Impact.
+   - Emulation rules, detection analytics, telemetry mapping, and STIX data pipelines.
+
+3. [**AEGIS: Adaptive Modular Cybersecurity Defense (`aegis_modular_defense.md`)**](aegis_modular_defense.md)
    - Detailed specification of modular defense orchestration, defense state machine, and static vs. adaptive Docker evaluation.
 
 ---
