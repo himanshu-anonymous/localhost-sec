@@ -58,10 +58,17 @@ async def websocket_experiment_telemetry(websocket: WebSocket, experiment_id: st
     last_sent_count = len(broker.in_memory_event_buffer)
 
     try:
-        # Send initial backlog of recent events
+        # Send initial backlog or handshake message
         recent = broker.get_recent_events(limit=10)
-        for evt in recent:
-            await websocket.send_json(evt["data"])
+        if not recent:
+            await websocket.send_json({
+                "event_type": "websocket.connected",
+                "experiment_id": experiment_id,
+                "timestamp": "connected"
+            })
+        else:
+            for evt in recent:
+                await websocket.send_json(evt["data"])
 
         # Continuous streaming loop
         while True:

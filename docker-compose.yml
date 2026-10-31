@@ -1,5 +1,37 @@
 services:
-  # Telemetry & Event Broker
+  # Persistent Relational Database (PostgreSQL 16)
+  postgres:
+    image: postgres:16-alpine
+    container_name: localhost-postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: localhost_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - localhost-net
+
+  # Ephemeral Runtime Graph Database (Neo4j 5)
+  neo4j:
+    image: neo4j:5-community
+    container_name: localhost-neo4j
+    ports:
+      - "7474:7474" # HTTP Browser
+      - "7687:7687" # Bolt
+    environment:
+      NEO4J_AUTH: neo4j/neo4jpassword
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_memory_heap_initial__size: 256m
+      NEO4J_dbms_memory_heap_max__size: 512m
+    restart: unless-stopped
+    networks:
+      - localhost-net
+
+  # Telemetry & Event Broker (Redis 7)
   redis:
     image: redis:7-alpine
     container_name: localhost-redis
@@ -72,6 +104,10 @@ services:
       - PORT=8000
     networks:
       - localhost-net
+
+volumes:
+  postgres-data:
+    name: localhost-postgres-data
 
 networks:
   localhost-net:

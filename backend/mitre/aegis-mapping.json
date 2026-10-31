@@ -1,0 +1,82 @@
+{
+  "T1110": {
+    "priority_tier": "P0",
+    "scenario_id": "brute_force",
+    "detector_id": "failed_login_rate",
+    "defense_modules": ["identity_guard", "rate_limiter"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "scenario_implemented"
+  },
+  "T1498": {
+    "priority_tier": "P0",
+    "scenario_id": "bounded_http_load",
+    "detector_id": "traffic_rate_anomaly",
+    "defense_modules": ["traffic_shield", "rate_limiter"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1613": {
+    "priority_tier": "P0",
+    "scenario_id": "container_discovery",
+    "detector_id": "unexpected_container_inventory_access",
+    "defense_modules": ["network_segmentation"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1046": {
+    "priority_tier": "P1",
+    "scenario_id": "service_discovery",
+    "detector_id": "unexpected_service_probe",
+    "defense_modules": ["network_segmentation"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1550": {
+    "priority_tier": "P1",
+    "scenario_id": "synthetic_session_replay",
+    "detector_id": "invalid_or_replayed_test_token",
+    "defense_modules": ["session_guardian"],
+    "simulation_mode": "synthetic_only",
+    "implementation_status": "planned"
+  },
+  "T1552": {
+    "priority_tier": "P1",
+    "scenario_id": "unsecured_credentials",
+    "detector_id": "credential_access_monitor",
+    "defense_modules": ["secret_scanner"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1610": {
+    "priority_tier": "P1",
+    "scenario_id": "deploy_container",
+    "detector_id": "rogue_container_detector",
+    "defense_modules": ["container_policy"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1525": {
+    "priority_tier": "P2",
+    "scenario_id": "implant_internal_image",
+    "detector_id": "image_integrity_verifier",
+    "defense_modules": ["image_policy"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  },
+  "T1611": {
+    "priority_tier": "P2",
+    "scenario_id": "escape_to_host",
+    "detector_id": "privilege_boundary_monitor",
+    "defense_modules": ["isolation_engine"],
+    "simulation_mode": "blocked_precondition_only",
+    "implementation_status": "planned"
+  },
+  "T1496": {
+    "priority_tier": "P2",
+    "scenario_id": "resource_hijacking",
+    "detector_id": "cpu_quota_anomaly",
+    "defense_modules": ["resource_monitor"],
+    "simulation_mode": "safe_local",
+    "implementation_status": "planned"
+  }
+}

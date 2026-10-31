@@ -1,0 +1,844 @@
+{
+  "type": "bundle",
+  "id": "bundle--enterprise-attack-containers-v16.1",
+  "spec_version": "2.1",
+  "objects": [
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1110",
+      "name": "Brute Force",
+      "description": "Adversaries may use brute force techniques to attempt credential access.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1110",
+          "url": "https://attack.mitre.org/techniques/T1110/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1498",
+      "name": "Network Denial of Service",
+      "description": "Adversaries may perform Network Denial of Service attacks to degrade availability.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1498",
+          "url": "https://attack.mitre.org/techniques/T1498/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1613",
+      "name": "Container and Resource Discovery",
+      "description": "Adversaries may attempt to discover containers or infrastructure deployment assets.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1613",
+          "url": "https://attack.mitre.org/techniques/T1613/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "discovery"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1046",
+      "name": "Network Service Discovery",
+      "description": "Adversaries may attempt to get a listing of services running on network hosts.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1046",
+          "url": "https://attack.mitre.org/techniques/T1046/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "discovery"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1550",
+      "name": "Use Alternate Authentication Material",
+      "description": "Adversaries may use alternate authentication material such as tokens or session cookies.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1550",
+          "url": "https://attack.mitre.org/techniques/T1550/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1552",
+      "name": "Unsecured Credentials",
+      "description": "Adversaries may search container environments for unsecured credentials and API keys.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1552",
+          "url": "https://attack.mitre.org/techniques/T1552/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1610",
+      "name": "Deploy Container",
+      "description": "Adversaries may deploy a container into the environment to execute malicious workloads.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1610",
+          "url": "https://attack.mitre.org/techniques/T1610/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1525",
+      "name": "Implant Internal Image",
+      "description": "Adversaries may implant malicious layers into internal container registry images.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1525",
+          "url": "https://attack.mitre.org/techniques/T1525/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1611",
+      "name": "Escape to Host",
+      "description": "Adversaries may attempt to break out of a container to gain access on the host system.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1611",
+          "url": "https://attack.mitre.org/techniques/T1611/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1496",
+      "name": "Resource Hijacking",
+      "description": "Adversaries may leverage container computing resources to mine cryptocurrency or conduct unauthorized tasks.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1496",
+          "url": "https://attack.mitre.org/techniques/T1496/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1190",
+      "name": "Exploit Public-Facing Application",
+      "description": "Adversaries may exploit vulnerabilities in public-facing web applications or ingress controllers.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1190",
+          "url": "https://attack.mitre.org/techniques/T1190/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "initial-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1133",
+      "name": "External Remote Services",
+      "description": "Adversaries may leverage exposed container administration or remote access ports.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1133",
+          "url": "https://attack.mitre.org/techniques/T1133/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "initial-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1078",
+      "name": "Valid Accounts",
+      "description": "Adversaries may obtain and abuse credentials of existing legitimate service accounts.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1078",
+          "url": "https://attack.mitre.org/techniques/T1078/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1059",
+      "name": "Command and Scripting Interpreter",
+      "description": "Adversaries may abuse command and microservice execution interpreters.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059",
+          "url": "https://attack.mitre.org/techniques/T1059/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1609",
+      "name": "Container Administration Command",
+      "description": "Adversaries may execute commands directly within a container via daemon APIs.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1609",
+          "url": "https://attack.mitre.org/techniques/T1609/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1053",
+      "name": "Scheduled Task/Job",
+      "description": "Adversaries may abuse task scheduling mechanisms to facilitate initial or recurring execution.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1053",
+          "url": "https://attack.mitre.org/techniques/T1053/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1204",
+      "name": "User Execution",
+      "description": "An adversary may rely on actions by a user or developer to trigger containerized code.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1204",
+          "url": "https://attack.mitre.org/techniques/T1204/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1098",
+      "name": "Account Manipulation",
+      "description": "Adversaries may manipulate accounts to maintain access or elevate privileges.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1098",
+          "url": "https://attack.mitre.org/techniques/T1098/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1136",
+      "name": "Create Account",
+      "description": "Adversaries may create an account to maintain access to victim systems.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1136",
+          "url": "https://attack.mitre.org/techniques/T1136/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1543",
+      "name": "Create or Modify System Process",
+      "description": "Adversaries may create or modify system-level services or daemons within containers.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1543",
+          "url": "https://attack.mitre.org/techniques/T1543/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1068",
+      "name": "Exploitation for Privilege Escalation",
+      "description": "Adversaries may exploit software vulnerabilities to escalate privileges within or across containers.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1068",
+          "url": "https://attack.mitre.org/techniques/T1068/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1548",
+      "name": "Abuse Elevation Control Mechanism",
+      "description": "Adversaries may circumvent mechanisms designed to control elevation of privileges.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1548",
+          "url": "https://attack.mitre.org/techniques/T1548/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1562",
+      "name": "Impair Defenses",
+      "description": "Adversaries may impair container security tools, logging agents, or admission controllers.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562",
+          "url": "https://attack.mitre.org/techniques/T1562/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1070",
+      "name": "Indicator Removal",
+      "description": "Adversaries may delete or alter container log artifacts to hinder forensic analysis.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070",
+          "url": "https://attack.mitre.org/techniques/T1070/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1003",
+      "name": "OS Credential Dumping",
+      "description": "Adversaries may attempt to dump credentials from memory or volume mounts.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1003",
+          "url": "https://attack.mitre.org/techniques/T1003/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1528",
+      "name": "Steal Application Access Token",
+      "description": "Adversaries may steal application tokens or service account JWTs.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1528",
+          "url": "https://attack.mitre.org/techniques/T1528/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1087",
+      "name": "Account Discovery",
+      "description": "Adversaries may attempt to enumerate accounts or RBAC roles within the cluster.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1087",
+          "url": "https://attack.mitre.org/techniques/T1087/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "discovery"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1082",
+      "name": "System Information Discovery",
+      "description": "Adversaries may attempt to get detailed container runtime and kernel information.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1082",
+          "url": "https://attack.mitre.org/techniques/T1082/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "discovery"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1021",
+      "name": "Remote Services",
+      "description": "Adversaries may use valid credentials to log into remote container endpoints.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1021",
+          "url": "https://attack.mitre.org/techniques/T1021/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1485",
+      "name": "Data Destruction",
+      "description": "Adversaries may destroy data within container storage volumes to disrupt operations.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1485",
+          "url": "https://attack.mitre.org/techniques/T1485/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--t1489",
+      "name": "Service Stop",
+      "description": "Adversaries may stop container services or microservice processes to cause denial of service.",
+      "revoked": false,
+      "x_mitre_deprecated": false,
+      "x_mitre_platforms": [
+        "Containers",
+        "Linux"
+      ],
+      "x_mitre_is_subtechnique": false,
+      "modified": "2026-10-31T08:44:55.501665Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1489",
+          "url": "https://attack.mitre.org/techniques/T1489/"
+        }
+      ],
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ]
+    }
+  ]
+}
