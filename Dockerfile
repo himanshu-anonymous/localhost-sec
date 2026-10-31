@@ -1,4 +1,4 @@
-# Dockerfile for localhost Simulation Worker
+# Dockerfile for AEGIS Orchestrator & Worker
 FROM python:3.10-slim
 
 WORKDIR /app
@@ -12,9 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+# Copy source code and compiled frontend
 COPY backend ./backend
 COPY system-docs ./system-docs
+COPY frontend/dist ./frontend/dist
 
 ENV PYTHONPATH=/app
 ENV PORT=8000

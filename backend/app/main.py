@@ -24,6 +24,7 @@ from backend.app.environments.docker_manager import docker_manager
 from backend.app.orchestrator.training_service import trainer_service
 from backend.db.postgres import init_db
 from backend.db.seed import seed_database
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(
     title="AEGIS / localhost (BASTION X) — Orchestrator API",
@@ -49,6 +50,12 @@ app.include_router(router_metrics)
 app.include_router(router_websocket)
 app.include_router(router_mitre)
 app.include_router(router_simulations)
+
+# Mount React frontend static assets if built
+FRONTEND_DIST_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend/dist"))
+ASSETS_DIR = os.path.join(FRONTEND_DIST_DIR, "assets")
+if os.path.exists(ASSETS_DIR):
+    app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="static_assets")
 
 
 @app.on_event("startup")
@@ -84,7 +91,12 @@ def root():
 
 @app.get("/dashboard", response_class=HTMLResponse)
 def embedded_dashboard():
-    """Lightweight real-time visualizer dashboard embedded directly in FastAPI."""
+    """Serves compiled React application from frontend/dist if available, falling back to embedded deck."""
+    dist_index = os.path.join(FRONTEND_DIST_DIR, "index.html")
+    if os.path.exists(dist_index):
+        with open(dist_index, "r", encoding="utf-8") as f:
+            return f.read()
+
     return """
     <!DOCTYPE html>
     <html lang="en">
