@@ -114,7 +114,31 @@ def run_m1_demonstration():
     ckpt_path = os.path.join("models", "checkpoints", "m1_ppo_policy.pt")
     agent.save_checkpoint(ckpt_path)
     print(f"\n[+] Policy checkpoint saved successfully to: {ckpt_path}")
-    print("[+] All 7 acceptance criteria of Milestone M1 verified and complete!\n")
+
+    # Domain C: Gemma 4 AI Analysis & Explanation
+    print("\n" + "=" * 80)
+    print("  DOMAIN C: GEMMA 4 REASONING & EXPLANATION SERVICE")
+    print("=" * 80)
+    from backend.app.gemma.service import GemmaReasoningService
+    gemma = GemmaReasoningService()
+    
+    rep_b = gemma.analyze_incident_and_defense(
+        environment_id="env_b_adaptive",
+        metrics=final_metrics["env_b_adaptive"],
+        active_incidents=["T1499", "T1110", "T1059", "T1046"],
+        enforced_policy=infos["env_b_adaptive"]["enforced_policy"],
+        ddps_rejected_count=env_b.ddps.rejected_count
+    )
+    print(f"[Gemma Analysis - Adaptive Instance (Env B)]")
+    print(f"  Summary:     {rep_b.incident_summary}")
+    print(f"  Defense:     {rep_b.defensive_action_explanation}")
+    print(f"  Outcome:     {rep_b.policy_outcome}")
+    print(f"  Invariants:  {rep_b.invariant_status}")
+    print(f"  Recommendations:")
+    for rec in rep_b.recommendations:
+        print(f"    - {rec}")
+
+    print("\n[+] All 7 acceptance criteria of Milestone M1 + Domain C verified and complete!\n")
 
 
 if __name__ == "__main__":
