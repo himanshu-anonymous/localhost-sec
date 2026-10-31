@@ -11,7 +11,8 @@ import {
   ShieldAlert, 
   ChevronDown,
   Layers,
-  Cpu
+  Cpu,
+  Terminal
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -27,6 +28,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange }) => 
     { id: 'cyber-range', label: 'Cyber-range', icon: Box },
     { id: 'benchmarks', label: 'Benchmarks', icon: BarChart3 },
     { id: 'ai-reasoning', label: 'AI reasoning', icon: Sparkles },
+    { id: 'terminal', label: 'Terminal / CLI', icon: Terminal },
   ];
 
   return (
@@ -127,4 +129,3 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onTabChange }) => 
     </aside>
   );
 };
-
